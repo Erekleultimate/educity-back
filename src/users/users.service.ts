@@ -5,6 +5,13 @@ import { IUser } from './users.model';
 
 @Injectable()
 export class UsersService {
+  private readonly users = [
+    {
+      email: 'datogio@gmail.com',
+      password: 'password',
+    },
+  ];
+
   constructor(
     @InjectModel('users') private readonly usersModel: Model<IUser>,
   ) {}
