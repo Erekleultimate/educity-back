@@ -18,4 +18,9 @@ export class UsersService {
     if (!email || !password) throw new NotAcceptableException();
     return this.usersModel.create({ email, password });
   }
+
+  async findOne(email: string): Promise<IUser | null> {
+    const user = await this.usersModel.findOne({ email }).exec();
+    return user;
+  }
 }
