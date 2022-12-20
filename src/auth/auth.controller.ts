@@ -20,13 +20,19 @@ export class AuthController {
       email: user.email,
       id: user.id,
     });
-    return { data: jwt, meta: {} };
+    return {
+      data: { ...jwt, user: { email: user.email, id: user.id } },
+      meta: {},
+    };
   }
 
   @UseGuards(AuthGuard('local'))
   @Post('local/login')
   async login(@Request() req) {
     const jwt = await this.authService.login(req.user);
-    return { data: jwt, meta: {} };
+    return {
+      data: { ...jwt, user: { email: req.user.email, id: req.user.id } },
+      meta: {},
+    };
   }
 }
