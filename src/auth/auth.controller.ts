@@ -1,7 +1,14 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
+import { JwtAutGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
@@ -35,5 +42,11 @@ export class AuthController {
       data: { ...jwt, user: { email: req.user.email, id: req.user.id } },
       meta: {},
     };
+  }
+
+  @UseGuards(JwtAutGuard)
+  @Get('me')
+  async me(@Request() req) {
+    return req.user;
   }
 }
