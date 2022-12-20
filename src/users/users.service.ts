@@ -6,13 +6,6 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  private readonly users = [
-    {
-      email: 'datogio@gmail.com',
-      password: 'password',
-    },
-  ];
-
   private async hashPassword(password: string) {
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
