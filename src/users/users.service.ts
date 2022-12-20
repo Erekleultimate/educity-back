@@ -13,7 +13,7 @@ export class UsersService {
     },
   ];
 
-  async hashPassword(password: string) {
+  private async hashPassword(password: string) {
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
     return hashedPassword;
