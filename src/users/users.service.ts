@@ -23,6 +23,8 @@ export class UsersService {
 
   async createUser(email: string, password: string) {
     if (!email || !password) throw new NotAcceptableException();
+    const user = await this.findOne(email);
+    if (user) throw new NotAcceptableException();
     const hashedPassword = await this.hashPassword(password);
     return this.usersModel.create({ email, password: hashedPassword });
   }
