@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Param,
   Post,
   Request,
   UploadedFile,
@@ -42,7 +41,10 @@ export class UsersController {
   @UseGuards(JwtAutGuard)
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('userImage'))
-  async uploadImage(@UploadedFile('file') file) {
+  async uploadImage(@UploadedFile('file') file, @Request() req) {
+    console.log(
+      `upload image to s3 bucket and associate image link with the ${req.user.email}`,
+    );
     return { data: file, meta: {} };
   }
 }
