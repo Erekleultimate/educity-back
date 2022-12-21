@@ -16,12 +16,12 @@ export class AuthController {
     @Body('password') password: string,
   ) {
     const user = await this.userService.createUser(email, password);
-    const jwt = await this.authService.login({
+    const { jwt } = await this.authService.login({
       email: user.email,
       id: user.id,
     });
     return {
-      data: { ...jwt, user: { email: user.email, id: user.id } },
+      data: { email: user.email, id: user.id, token: jwt },
       meta: {},
     };
   }
@@ -29,9 +29,9 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('local/login')
   async login(@Request() req) {
-    const jwt = await this.authService.login(req.user);
+    const { jwt } = await this.authService.login(req.user);
     return {
-      data: { ...jwt, user: { email: req.user.email, id: req.user.id } },
+      data: { email: req.user.email, id: req.user.id, token: jwt },
       meta: {},
     };
   }

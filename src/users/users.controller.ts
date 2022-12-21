@@ -21,7 +21,7 @@ export class UsersController {
   @Get()
   async find() {
     const users = await this.usersService.getAllUsers();
-    return { data: users, meta: {} };
+    return { data: users, meta: { number: users.length } };
   }
 
   @Post()
