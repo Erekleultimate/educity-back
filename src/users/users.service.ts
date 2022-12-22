@@ -52,7 +52,7 @@ export class UsersService {
     const user = await this.findOne(email);
     if (user.email !== email) user.email = email;
     if (password) user.password = await this.hashPassword(password);
-    if (image) user.image = image;
+    if (user.image !== image) user.image = image;
     await user.save();
     return user;
   }
