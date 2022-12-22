@@ -26,11 +26,34 @@ export class UsersService {
     const user = await this.findOne(email);
     if (user) throw new NotAcceptableException();
     const hashedPassword = await this.hashPassword(password);
-    return this.usersModel.create({ email, password: hashedPassword });
+    return this.usersModel.create({
+      email,
+      password: hashedPassword,
+      image: '',
+    });
   }
 
   async findOne(email: string): Promise<IUser | null> {
     const user = await this.usersModel.findOne({ email }).exec();
+    return user;
+  }
+
+  async uploadUserImage(email: string, image: object): Promise<IUser> {
+    const imageLink = 'imageLink'; // TODO: upload image to amazon s3 bucket and asign link string
+    const user = await this.updateUser(email, undefined, imageLink);
+    return user;
+  }
+
+  async updateUser(
+    email: string,
+    password: string,
+    image: string,
+  ): Promise<IUser> {
+    const user = await this.findOne(email);
+    if (user.email !== email) user.email = email;
+    if (password) user.password = await this.hashPassword(password);
+    if (image) user.image = image;
+    await user.save();
     return user;
   }
 }

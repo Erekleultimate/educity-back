@@ -41,10 +41,9 @@ export class UsersController {
   @UseGuards(JwtAutGuard)
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('userImage'))
-  async uploadImage(@UploadedFile('file') file, @Request() req) {
-    console.log(
-      `upload image to s3 bucket and associate image link with the ${req.user.email}`,
-    );
-    return { data: file, meta: {} };
+  async uploadImage(@UploadedFile('file') file: object, @Request() req) {
+    const user = await this.usersService.uploadUserImage(req.user.email, file);
+    console.log(user);
+    return { data: user, meta: {} };
   }
 }
