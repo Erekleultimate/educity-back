@@ -10,11 +10,15 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAutGuard } from 'src/auth/jwt-auth.guard';
+import { S3Service } from 'src/s3/s3.service';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly s3Service: S3Service,
+  ) {}
 
   @UseGuards(JwtAutGuard)
   @Get()
@@ -51,7 +55,7 @@ export class UsersController {
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('userImage'))
   async uploadImage(@UploadedFile('file') file: object, @Request() req) {
-    const imageLink = await this.usersService.uploadUserImage(
+    const imageLink = await this.s3Service.uploadUserImage(
       req.user.email,
       file,
     );

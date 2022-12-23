@@ -3,18 +3,19 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from './users.model';
 import * as bcrypt from 'bcrypt';
+import { S3Service } from 'src/s3/s3.service';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectModel('users') private readonly usersModel: Model<IUser>,
+  ) {}
+
   private async hashPassword(password: string) {
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
     return hashedPassword;
   }
-
-  constructor(
-    @InjectModel('users') private readonly usersModel: Model<IUser>,
-  ) {}
 
   async getAllUsers() {
     const users = await this.usersModel.find().exec();
@@ -36,11 +37,6 @@ export class UsersService {
   async findOne(email: string): Promise<IUser | null> {
     const user = await this.usersModel.findOne({ email }).exec();
     return user;
-  }
-
-  async uploadUserImage(email: string, image: object): Promise<string> {
-    const imageLink = 'imageLink'; // TODO: upload image to amazon s3 bucket and asign link string
-    return imageLink;
   }
 
   async updateUser(
