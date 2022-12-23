@@ -35,7 +35,16 @@ export class UsersController {
   @UseGuards(JwtAutGuard)
   @Get('me')
   async me(@Request() req) {
-    return { data: req.user, meta: {} };
+    const user = await this.usersService.findOne(req.user.email);
+    return {
+      data: {
+        email: user.email,
+        id: user.id,
+        image: user.image,
+        token: req.user.token,
+      },
+      meta: {},
+    };
   }
 
   @UseGuards(JwtAutGuard)
