@@ -21,7 +21,7 @@ export class AuthController {
       id: user.id,
     });
     return {
-      data: { email: user.email, id: user.id, token: jwt },
+      data: { email: user.email, id: user.id, image: user.image, token: jwt },
       meta: {},
     };
   }
@@ -30,8 +30,9 @@ export class AuthController {
   @Post('local/login')
   async login(@Request() req) {
     const { jwt } = await this.authService.login(req.user);
+    const user = await this.userService.findOne(req.user.email);
     return {
-      data: { email: req.user.email, id: req.user.id, token: jwt },
+      data: { email: user.email, id: user.id, image: user.image, token: jwt },
       meta: {},
     };
   }
