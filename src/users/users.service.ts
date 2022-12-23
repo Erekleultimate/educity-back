@@ -38,22 +38,25 @@ export class UsersService {
     return user;
   }
 
-  async uploadUserImage(email: string, image: object): Promise<IUser> {
+  async uploadUserImage(email: string, image: object): Promise<string> {
     const imageLink = 'imageLink'; // TODO: upload image to amazon s3 bucket and asign link string
-    const user = await this.updateUser(email, undefined, imageLink);
-    return user;
+    return imageLink;
   }
 
   async updateUser(
     email: string,
     password: string,
     image: string,
-  ): Promise<IUser> {
+  ): Promise<{ email: string; id: string; image: string }> {
     const user = await this.findOne(email);
     if (user.email !== email) user.email = email;
     if (password) user.password = await this.hashPassword(password);
     if (user.image !== image) user.image = image;
     await user.save();
-    return user;
+    return {
+      email: user.email,
+      id: user.id,
+      image: user.image,
+    };
   }
 }

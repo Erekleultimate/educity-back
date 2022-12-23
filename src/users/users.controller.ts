@@ -51,8 +51,15 @@ export class UsersController {
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('userImage'))
   async uploadImage(@UploadedFile('file') file: object, @Request() req) {
-    const user = await this.usersService.uploadUserImage(req.user.email, file);
-    console.log(user);
+    const imageLink = await this.usersService.uploadUserImage(
+      req.user.email,
+      file,
+    );
+    const user = await this.usersService.updateUser(
+      req.user.email,
+      null,
+      imageLink,
+    );
     return { data: user, meta: {} };
   }
 }
