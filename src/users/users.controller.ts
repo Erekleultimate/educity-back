@@ -55,7 +55,6 @@ export class UsersController {
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('userImage'))
   async uploadImage(@UploadedFile('file') file: object, @Request() req) {
-    console.log(file);
     const imageLink = await this.s3Service.uploadFile(file);
     const user = await this.usersService.updateUser(
       req.user.email,
