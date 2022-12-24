@@ -41,7 +41,7 @@ export class S3Service {
     try {
       let s3Response = await this.s3.upload(params).promise();
       return s3Response.Location;
-    } catch (e) {
+    } catch (err) {
       throw new NotAcceptableException();
     }
   }
