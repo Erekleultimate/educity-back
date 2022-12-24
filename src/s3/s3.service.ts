@@ -38,12 +38,9 @@ export class S3Service {
       },
     };
 
-    let fileLink: string;
-
     try {
       let s3Response = await this.s3.upload(params).promise();
-      fileLink = s3Response.Location;
-      return fileLink;
+      return s3Response.Location;
     } catch (e) {
       throw new NotAcceptableException();
     }
