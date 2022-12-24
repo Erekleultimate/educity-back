@@ -54,13 +54,9 @@ export class UsersController {
   @UseGuards(JwtAutGuard)
   @Post('upload-image')
   @UseInterceptors(FileInterceptor('userImage'))
-  async uploadImage(@UploadedFile('file') file: object, @Request() req) {
+  async uploadUserImage(@UploadedFile('file') file: object, @Request() req) {
     const imageLink = await this.s3Service.uploadFile(file);
-    const user = await this.usersService.updateUser(
-      req.user.email,
-      null,
-      imageLink,
-    );
-    return { data: user, meta: {} };
+    await this.usersService.updateUser(req.user.email, null, imageLink);
+    return { data: imageLink, meta: {} };
   }
 }
