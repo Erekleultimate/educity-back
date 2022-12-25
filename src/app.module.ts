@@ -8,9 +8,7 @@ import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      `mongodb+srv://datogio:apassfortraderN1@cluster0.jjsez4q.mongodb.net/auction?retryWrites=true&w=majority`,
-    ),
+    MongooseModule.forRoot(process.env.CONNECTION_STRING),
     AuthModule,
     UsersModule,
     S3Module,
