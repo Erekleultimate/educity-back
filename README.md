@@ -5,18 +5,18 @@ Nestjs back end with jwt auth
 ## Installation
 
 ```bash
-yarn add
+$ yarn
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn run start
 
 # watch mode
-$ npm run start:dev
+$ yarn run start:dev
 
 # production mode
-$ npm run start:prod
+$ run start:prod
 ```
