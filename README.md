@@ -20,3 +20,8 @@ $ yarn run start:dev
 # production mode
 $ run start:prod
 ```
+
+```bash
+JWT_SECRET
+CONNECTION_STRING
+```

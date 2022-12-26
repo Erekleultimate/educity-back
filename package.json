@@ -10,7 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "JWT_SECRET=secretKey CONNECTION_STRING=mongodb+srv://datogio:apassfortraderN1@cluster0.jjsez4q.mongodb.net/auction?retryWrites=true&w=majority nest start --watch",
+    "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
