@@ -7,7 +7,8 @@ export const UserSchema = new mongoose.Schema({
 });
 
 export interface IUser extends mongoose.Document {
+  id: string;
   email: string;
   password: string;
-  image: string | '';
+  image: string;
 }

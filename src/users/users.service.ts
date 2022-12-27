@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from './users.model';
 import * as bcrypt from 'bcrypt';
-import { S3Service } from 'src/s3/s3.service';
 
 @Injectable()
 export class UsersService {
