@@ -7,6 +7,7 @@ export const CourseSchema = new mongoose.Schema({
   name: { type: String, required: true },
   price: { type: String, required: true },
   img: { type: String },
+  owner: { type: mongoose.Types.ObjectId, ref: 'owner' },
 });
 
 export interface ICourse extends mongoose.Document {
@@ -17,4 +18,5 @@ export interface ICourse extends mongoose.Document {
   name: string;
   price: string;
   img: string;
+  owner: string;
 }
