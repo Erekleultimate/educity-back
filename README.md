@@ -21,7 +21,7 @@ $ yarn run start:dev
 $ run start:prod
 ```
 
-# Required environment variables
+## Required environment variables
 
 ```bash
 JWT_SECRET
