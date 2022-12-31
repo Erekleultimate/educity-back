@@ -3,10 +3,10 @@ import * as AWS from 'aws-sdk';
 
 @Injectable()
 export class S3Service {
-  AWS_S3_BUCKET = 'toy-store-2021';
+  AWS_S3_BUCKET = process.env.AWS_S3_BUCKET;
   s3 = new AWS.S3({
-    accessKeyId: 'AKIAWNMQUD72RRUDZJEA',
-    secretAccessKey: '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',
+    accessKeyId: process.env.AMAZON_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AMAZON_AWS_SECRET_ACCESS_KEY,
   });
 
   async uploadFile(file) {

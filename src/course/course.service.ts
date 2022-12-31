@@ -34,4 +34,8 @@ export class CourseService {
       img: imageLink,
     });
   }
+
+  async findMany() {
+    return this.courseModel.find().exec();
+  }
 }

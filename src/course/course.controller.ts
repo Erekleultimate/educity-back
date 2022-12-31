@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -11,6 +12,12 @@ import { CourseService } from './course.service';
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
+
+  @Get()
+  async find() {
+    const courses = await this.courseService.findMany();
+    return { data: courses, meta: { number: courses.length } };
+  }
 
   @Post()
   @UseInterceptors(FileInterceptor('courseImage'))
