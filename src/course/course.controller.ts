@@ -4,9 +4,11 @@ import {
   Get,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAutGuard } from 'src/auth/jwt-auth.guard';
 import { CourseService } from './course.service';
 
 @Controller('course')
@@ -19,6 +21,7 @@ export class CourseController {
     return { data: courses, meta: { number: courses.length } };
   }
 
+  @UseGuards(JwtAutGuard)
   @Post()
   @UseInterceptors(FileInterceptor('courseImage'))
   async createCourse(
