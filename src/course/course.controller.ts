@@ -16,11 +16,11 @@ export class CourseController {
   @UseInterceptors(FileInterceptor('courseImage'))
   async createCourse(
     @Body('type') type: string,
-    @Body('place') place: string,
-    @Body('name') name: string,
-    @Body('price') price: string,
     @Body('owner') owner: string,
-    @UploadedFile('file') file: object,
+    @Body('name') name: string,
+    @Body('place') place: string,
+    @Body('price') price: string,
+    @UploadedFile() file,
   ) {
     const course = await this.courseService.create(
       type,
