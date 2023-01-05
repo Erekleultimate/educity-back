@@ -14,19 +14,19 @@ export class CourseService {
   ) {}
 
   async create(
-    type: string,
+    category: string,
     place: string,
     name: string,
     price: string,
     owner: string,
     file: object,
   ) {
-    if (!type || !place || !name || !price || !owner || !file)
+    if (!category || !place || !name || !price || !owner || !file)
       throw new NotAcceptableException();
     const user = await this.userService.findOne(owner);
     const imageLink = await this.s3Service.uploadFile(file);
     return this.courseModel.create({
-      type,
+      category,
       place,
       name,
       price,

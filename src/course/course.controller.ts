@@ -25,7 +25,7 @@ export class CourseController {
   @Post()
   @UseInterceptors(FileInterceptor('courseImage'))
   async createCourse(
-    @Body('type') type: string,
+    @Body('category') category: string,
     @Body('owner') owner: string,
     @Body('name') name: string,
     @Body('place') place: string,
@@ -33,7 +33,7 @@ export class CourseController {
     @UploadedFile() file,
   ) {
     const course = await this.courseService.create(
-      type,
+      category,
       place,
       name,
       price,
