@@ -5,6 +5,5 @@ export const CategorySchema = new mongoose.Schema({
 });
 
 export interface ICategory extends mongoose.Document {
-  id: string;
   title: string;
 }
